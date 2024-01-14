@@ -1,6 +1,5 @@
 "use client"
 
-import { Canvas } from "@react-three/fiber"
 import { useMemo } from "react"
 import { parse } from "svg-parser"
 
@@ -25,7 +24,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Canvas>{shapes && <Scene shapes={shapes} />}</Canvas>
+      {shapes && <Scene shapes={shapes} />}
     </main>
   )
 }
