@@ -17,6 +17,10 @@ interface SVGElement {
 
 export type Shapes = SVGElement[]
 
+const CircleComponent = ({ cx, cy, r, fill }: SVGElementProperties) => (
+  <circle cx={cx} cy={cy} r={r} fill={fill} />
+)
+
 export const Scene = ({ shapes }: { shapes: Shapes }) => {
   return (
     <svg
@@ -29,7 +33,7 @@ export const Scene = ({ shapes }: { shapes: Shapes }) => {
         const { cx, cy, r, width, height, fill, x, y } = shape.properties
         const { tagName } = shape
         if (tagName === "circle") {
-          return <circle key={index} cx={cx} cy={cy} r={r} fill="white" />
+          return <CircleComponent key={index} cx={cx} cy={cy} r={r} fill="white" />
         } else if (tagName === "rect") {
           return <rect key={index} x={x} y={y} width={width} height={height} fill="white" />
         }
