@@ -1,15 +1,7 @@
-import { CircleComponent } from "./CircleComponent"
+import { useControls } from "leva"
 
-export interface SVGElementProperties {
-  cx?: number
-  cy?: number
-  r?: number
-  width?: number
-  height?: number
-  fill?: string
-  x?: number // Added for rect elements
-  y?: number // Added for rect elements
-}
+import { CircleComponent, SVGElementProperties } from "./CircleComponent"
+
 interface SVGElement {
   children: SVGElement[] // Assuming children could also be SVG elements
   properties: SVGElementProperties
@@ -20,6 +12,11 @@ interface SVGElement {
 export type Shapes = SVGElement[]
 
 export const Scene = ({ shapes }: { shapes: Shapes }) => {
+  const { clockwise, counterclockwise } = useControls("Animation Direction", {
+    clockwise: false,
+    counterclockwise: false,
+  })
+
   return (
     <svg
       className="w-full h-full"
@@ -31,7 +28,17 @@ export const Scene = ({ shapes }: { shapes: Shapes }) => {
         const { cx, cy, r, width, height, fill, x, y } = shape.properties
         const { tagName } = shape
         if (tagName === "circle") {
-          return <CircleComponent key={index} cx={cx} cy={cy} r={r} fill="white" />
+          return (
+            <CircleComponent
+              key={index}
+              cx={cx}
+              cy={cy}
+              r={r}
+              fill="white"
+              clockwise={clockwise}
+              counterclockwise={counterclockwise}
+            />
+          )
         } else if (tagName === "rect") {
           return <rect key={index} x={x} y={y} width={width} height={height} fill="white" />
         }

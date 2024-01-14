@@ -1,17 +1,40 @@
 import { useAnimationFrame } from "framer-motion"
+import { useControls } from "leva"
 import { useRef, useState } from "react"
 
-import { SVGElementProperties } from "./Scene"
+export interface SVGElementProperties {
+  cx?: number
+  cy?: number
+  r?: number
+  width?: number
+  height?: number
+  fill?: string
+  x?: number
+  y?: number
+}
 
-export const CircleComponent = ({ cx, cy, r, fill }: SVGElementProperties) => {
+type CircleProps = {
+  clockwise?: boolean
+  counterclockwise?: boolean
+}
+
+export const CircleComponent = ({ cx, cy, r, fill }: SVGElementProperties & CircleProps) => {
   const ref = useRef<SVGCircleElement>(null)
   const [pathDirection, setPathDirection] = useState<"clockwise" | "counterclockwise">(
     Math.random() > 0.5 ? "clockwise" : "counterclockwise"
   )
 
+  const { side } = useControls({
+    side: {
+      value: 10,
+      min: 0.1,
+      max: 100,
+      step: 0.01,
+    },
+  })
+
   useAnimationFrame((time, delta) => {
     if (!ref.current) return
-    const side = 5
     const speed = 0.05 // Adjust speed as necessary
     const timeAdjustedSpeed = (time * speed) % (side * 4)
     let x, y
@@ -45,8 +68,19 @@ export const CircleComponent = ({ cx, cy, r, fill }: SVGElementProperties) => {
         y = side / 2 - (timeAdjustedSpeed - side * 3)
       }
     }
-    if (pathDirection !== "clockwise") ref.current.style.transform = `translate(${x}px, ${y}px)`
+    // if (pathDirection === "clockwise")
+    ref.current.style.transform = `translate(${x}px, ${y}px)`
   })
 
-  return <circle cx={cx} cy={cy} r={r} fill={fill} ref={ref} />
+  // Calculate the top-left corner of the rectangle
+  const rectX = cx! - side / 2
+  const rectY = cy! - side / 2
+
+  return (
+    <>
+      <rect x={rectX} y={rectY} width={side} height={side} stroke="red" fill="none" />
+
+      <circle cx={cx} cy={cy} r={r} fill={fill} ref={ref} />
+    </>
+  )
 }
