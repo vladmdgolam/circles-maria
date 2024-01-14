@@ -12,6 +12,7 @@
     "@react-three/drei": "^9.93.0",
     "@react-three/fiber": "^8.15.14",
     "@types/svg-parser": "^2.0.6",
+    "framer-motion": "^10.18.0",
     "leva": "^0.9.35",
     "next": "14.0.4",
     "raw-loader": "^4.0.2",
