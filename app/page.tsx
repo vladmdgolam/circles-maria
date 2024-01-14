@@ -1,6 +1,8 @@
 "use client"
 
-import { useMemo } from "react"
+import useHotkey from "@/hooks/useHotkey"
+import { Leva } from "leva"
+import { useMemo, useState } from "react"
 import { parse } from "svg-parser"
 
 import maria from "./maria.svg"
@@ -10,6 +12,13 @@ interface ParsedSVG {
   children: {
     children?: any[] // Replace `any` with a more specific type if possible
   }[]
+}
+
+const Menu = () => {
+  const [menu, setMenu] = useState<boolean | null>(true)
+  useHotkey("m", () => setMenu((menu) => !menu))
+
+  return <Leva hidden={!menu} />
 }
 
 export default function Home() {
@@ -24,6 +33,7 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center p-24">
+      <Menu />
       {shapes && <Scene shapes={shapes} />}
     </main>
   )

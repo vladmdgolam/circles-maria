@@ -18,7 +18,14 @@ type CircleProps = {
   counterclockwise?: boolean
 }
 
-export const CircleComponent = ({ cx, cy, r, fill }: SVGElementProperties & CircleProps) => {
+export const CircleComponent = ({
+  cx,
+  cy,
+  r,
+  fill,
+  clockwise,
+  counterclockwise,
+}: SVGElementProperties & CircleProps) => {
   const ref = useRef<SVGCircleElement>(null)
   const [pathDirection, setPathDirection] = useState<"clockwise" | "counterclockwise">(
     Math.random() > 0.5 ? "clockwise" : "counterclockwise"
@@ -68,8 +75,12 @@ export const CircleComponent = ({ cx, cy, r, fill }: SVGElementProperties & Circ
         y = side / 2 - (timeAdjustedSpeed - side * 3)
       }
     }
-    // if (pathDirection === "clockwise")
-    ref.current.style.transform = `translate(${x}px, ${y}px)`
+    if (
+      (clockwise && pathDirection === "clockwise") ||
+      (counterclockwise && pathDirection === "counterclockwise")
+    ) {
+      ref.current.style.transform = `translate(${x}px, ${y}px)`
+    }
   })
 
   // Calculate the top-left corner of the rectangle

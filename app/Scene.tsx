@@ -13,8 +13,8 @@ export type Shapes = SVGElement[]
 
 export const Scene = ({ shapes }: { shapes: Shapes }) => {
   const { clockwise, counterclockwise } = useControls("Animation Direction", {
-    clockwise: false,
-    counterclockwise: false,
+    clockwise: true,
+    counterclockwise: true,
   })
 
   return (
