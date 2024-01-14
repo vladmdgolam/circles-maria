@@ -1,7 +1,7 @@
 "use client"
 
 import { Canvas } from "@react-three/fiber"
-import { useEffect } from "react"
+import { useMemo } from "react"
 import { parse } from "svg-parser"
 
 import maria from "./maria.svg"
@@ -16,17 +16,16 @@ interface ParsedSVG {
 export default function Home() {
   const svg = parse(maria) as ParsedSVG
 
-  useEffect(() => {
+  const shapes = useMemo(() => {
     if (svg.children[0].children && svg.children[0].children.length > 0) {
-      const shapes = svg.children[0].children
+      return svg.children[0].children
     }
-  }, [])
+    return []
+  }, [svg])
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Canvas>
-        <Scene />
-      </Canvas>
+      <Canvas>{shapes && <Scene shapes={shapes} />}</Canvas>
     </main>
   )
 }
