@@ -12,9 +12,10 @@ interface SVGElement {
 export type Shapes = SVGElement[]
 
 export const Scene = ({ shapes }: { shapes: Shapes }) => {
-  const { clockwise, counterclockwise } = useControls("Animation Direction", {
+  const { clockwise, counterclockwise, squares } = useControls("Animation Direction", {
     clockwise: true,
     counterclockwise: true,
+    squares: true,
   })
 
   return (
@@ -37,6 +38,7 @@ export const Scene = ({ shapes }: { shapes: Shapes }) => {
               fill="white"
               clockwise={clockwise}
               counterclockwise={counterclockwise}
+              squares={squares}
             />
           )
         } else if (tagName === "rect") {

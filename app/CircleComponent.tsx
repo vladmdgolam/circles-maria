@@ -16,6 +16,7 @@ export interface SVGElementProperties {
 type CircleProps = {
   clockwise?: boolean
   counterclockwise?: boolean
+  squares?: boolean
 }
 
 export const CircleComponent = ({
@@ -25,6 +26,7 @@ export const CircleComponent = ({
   fill,
   clockwise,
   counterclockwise,
+  squares,
 }: SVGElementProperties & CircleProps) => {
   const ref = useRef<SVGCircleElement>(null)
   const [pathDirection, setPathDirection] = useState<"clockwise" | "counterclockwise">(
@@ -89,7 +91,7 @@ export const CircleComponent = ({
 
   return (
     <>
-      <rect x={rectX} y={rectY} width={side} height={side} stroke="red" fill="none" />
+      {squares && <rect x={rectX} y={rectY} width={side} height={side} stroke="red" fill="none" />}
 
       <circle cx={cx} cy={cy} r={r} fill={fill} ref={ref} />
     </>
