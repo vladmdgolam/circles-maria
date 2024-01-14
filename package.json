@@ -9,12 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/drei": "^9.93.0",
+    "@react-three/fiber": "^8.15.14",
     "@types/svg-parser": "^2.0.6",
+    "leva": "^0.9.35",
     "next": "14.0.4",
     "raw-loader": "^4.0.2",
     "react": "^18",
     "react-dom": "^18",
-    "svg-parser": "^2.0.4"
+    "svg-parser": "^2.0.4",
+    "three": "^0.160.0"
   },
   "devDependencies": {
     "@types/node": "^20",
