@@ -1,4 +1,6 @@
-interface SVGElementProperties {
+import { CircleComponent } from "./CircleComponent"
+
+export interface SVGElementProperties {
   cx?: number
   cy?: number
   r?: number
@@ -16,10 +18,6 @@ interface SVGElement {
 }
 
 export type Shapes = SVGElement[]
-
-const CircleComponent = ({ cx, cy, r, fill }: SVGElementProperties) => (
-  <circle cx={cx} cy={cy} r={r} fill={fill} />
-)
 
 export const Scene = ({ shapes }: { shapes: Shapes }) => {
   return (
